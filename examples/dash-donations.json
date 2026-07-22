@@ -1,0 +1,13 @@
+{
+  "descriptor": {
+    "ndk": 1,
+    "subject": "github:Patternity/ndk",
+    "purpose": "donations",
+    "profile": "dash:mainnet",
+    "type": "bip32-seed"
+  },
+  "metadata": {
+    "name": "NDK donations",
+    "description": "Donation seed for the NDK project. Metadata is NOT part of NDK derivation."
+  }
+}

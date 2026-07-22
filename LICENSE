@@ -1,0 +1,38 @@
+NDK specification — licensing
+=============================
+
+This repository uses two licenses.
+
+1. Documentation — Creative Commons Attribution 4.0 International (CC-BY-4.0)
+---------------------------------------------------------------------------
+Applies to all prose and markup in this repository EXCEPT the files covered by
+section 2 below (in particular: *.md, and any other documentation).
+
+  Copyright (c) Patternity and NDK contributors.
+
+  This work is licensed under the Creative Commons Attribution 4.0 International
+  License. You are free to share and adapt the material for any purpose, even
+  commercially, provided you give appropriate credit, provide a link to the
+  license, and indicate if changes were made.
+
+  License summary:   https://creativecommons.org/licenses/by/4.0/
+  Full legal code:   https://creativecommons.org/licenses/by/4.0/legalcode
+
+  Attribution notice to reproduce:
+    "NDK specification, (c) Patternity, CC-BY-4.0."
+
+2. Test vectors and schemas — CC0 1.0 Universal (public domain dedication)
+--------------------------------------------------------------------------
+Applies to the entire contents of the `vectors/` and `schemas/` directories.
+
+  To the extent possible under law, Patternity and the NDK contributors have
+  waived all copyright and related or neighboring rights to the files in
+  `vectors/` and `schemas/`. These files are dedicated to the public domain so
+  that any implementation may embed them without attribution requirements.
+
+  Full legal code:   https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+Rationale: the documentation is licensed CC-BY-4.0 to require attribution while
+allowing free reuse and adaptation; the machine-readable conformance artifacts are
+placed in the public domain (CC0) to remove any friction from embedding them in
+implementations under any license.

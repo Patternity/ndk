@@ -1,0 +1,7 @@
+{
+  "ndk": 1,
+  "subject": "github:Patternity/ndk",
+  "purpose": "release-signing",
+  "profile": "minisign",
+  "type": "ed25519-seed"
+}

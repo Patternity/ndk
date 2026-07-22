@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://patternity.dev/ndk/schemas/ndk-1.schema.json",
+  "title": "NDK-1 descriptor",
+  "description": "Structural validation of an NDK-1 descriptor. Semantic rules that JSON Schema cannot enforce (UTF-8 byte length, Unicode NFC, duplicate JSON keys, integer-vs-float distinction of `ndk`) MUST be checked separately per SPEC.md sections 8-11.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ndk", "subject", "purpose", "profile", "type"],
+  "properties": {
+    "ndk": {
+      "description": "Major NDK version. Must be the integer 1.",
+      "const": 1
+    },
+    "subject": {
+      "description": "Human-readable subject. Full rules (NFC, byte length, control chars, edge whitespace) are semantic; this pattern only checks the scheme prefix and that at least one ':' is present.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^[a-z][a-z0-9+.-]*:.+$"
+    },
+    "purpose": {
+      "description": "Stable lowercase role token.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "profile": {
+      "description": "Downstream context identifier (opaque to NDK).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[.:-][a-z0-9]+)*$"
+    },
+    "type": {
+      "description": "Seed to key transform name (defined by NDK Profiles).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    }
+  }
+}

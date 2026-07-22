@@ -1,0 +1,7 @@
+{
+  "ndk": 1,
+  "subject": "user:alice@example.org",
+  "purpose": "authentication",
+  "profile": "ssh:ed25519",
+  "type": "ed25519-seed"
+}

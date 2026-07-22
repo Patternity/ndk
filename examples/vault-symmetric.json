@@ -1,0 +1,7 @@
+{
+  "ndk": 1,
+  "subject": "domain:example.org",
+  "purpose": "encryption",
+  "profile": "application:vault:v1",
+  "type": "hkdf-sha256"
+}

@@ -1,0 +1,283 @@
+{
+  "spec": "ndk-1",
+  "objectLevel": [
+    {
+      "name": "root not an object",
+      "descriptor": null,
+      "valid": false,
+      "expectedCodes": [
+        "not-an-object"
+      ]
+    },
+    {
+      "name": "root is array",
+      "descriptor": [
+        {
+          "ndk": 1,
+          "subject": "github:Patternity/ndk",
+          "purpose": "donations",
+          "profile": "dash:mainnet"
+        }
+      ],
+      "valid": false,
+      "expectedCodes": [
+        "not-an-object"
+      ]
+    },
+    {
+      "name": "unknown property",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed",
+        "extra": "x"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "unknown-property"
+      ]
+    },
+    {
+      "name": "missing type",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "donations",
+        "profile": "dash:mainnet"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "missing"
+      ]
+    },
+    {
+      "name": "ndk is string",
+      "descriptor": {
+        "ndk": "1",
+        "subject": "github:Patternity/ndk",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-value"
+      ]
+    },
+    {
+      "name": "ndk is 2",
+      "descriptor": {
+        "ndk": 2,
+        "subject": "github:Patternity/ndk",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-value"
+      ]
+    },
+    {
+      "name": "purpose uppercase",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "Donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-format"
+      ]
+    },
+    {
+      "name": "purpose empty",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-length",
+        "invalid-format"
+      ]
+    },
+    {
+      "name": "purpose underscore",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "a_b",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-format"
+      ]
+    },
+    {
+      "name": "profile uppercase",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "donations",
+        "profile": "Dash:Mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-format"
+      ]
+    },
+    {
+      "name": "profile slash",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "donations",
+        "profile": "dash/mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-format"
+      ]
+    },
+    {
+      "name": "type uppercase",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "github:Patternity/ndk",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "BIP32"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-format"
+      ]
+    },
+    {
+      "name": "subject no scheme",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "noscheme",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "missing-scheme"
+      ]
+    },
+    {
+      "name": "subject bad scheme",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "1bad:x",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "invalid-scheme"
+      ]
+    },
+    {
+      "name": "subject non-NFC",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "user:é@example.org",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "not-nfc"
+      ]
+    },
+    {
+      "name": "subject control char (tab)",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "user:a\tb",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "control-char"
+      ]
+    },
+    {
+      "name": "subject leading space",
+      "descriptor": {
+        "ndk": 1,
+        "subject": " user:alice",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "edge-whitespace",
+        "invalid-scheme"
+      ]
+    },
+    {
+      "name": "subject trailing space",
+      "descriptor": {
+        "ndk": 1,
+        "subject": "user:alice ",
+        "purpose": "donations",
+        "profile": "dash:mainnet",
+        "type": "bip32-seed"
+      },
+      "valid": false,
+      "expectedCodes": [
+        "edge-whitespace"
+      ]
+    }
+  ],
+  "textLevel": [
+    {
+      "name": "invalid JSON text",
+      "json": "{ \"ndk\": 1, ",
+      "valid": false,
+      "expectedCodes": [
+        "invalid-json"
+      ],
+      "note": "Text-layer only: a strict parser rejects malformed JSON before object validation."
+    },
+    {
+      "name": "duplicate property name",
+      "json": "{\"ndk\":1,\"purpose\":\"a\",\"purpose\":\"b\",\"subject\":\"github:x/y\",\"profile\":\"dash:mainnet\",\"type\":\"bip32-seed\"}",
+      "valid": false,
+      "expectedCodes": [
+        "duplicate-property"
+      ],
+      "note": "Text-layer only: duplicate keys collapse in a materialized object; a strict text parser MUST reject."
+    },
+    {
+      "name": "ndk as 1.0 float",
+      "json": "{\"ndk\":1.0,\"subject\":\"github:x/y\",\"purpose\":\"a\",\"profile\":\"dash:mainnet\",\"type\":\"bip32-seed\"}",
+      "valid": false,
+      "expectedCodes": [
+        "invalid-value"
+      ],
+      "note": "Text-layer: 1.0 parses to number 1 in JS; to distinguish integer 1 from 1.0 inspect the raw token before parsing."
+    }
+  ]
+}
