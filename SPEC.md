@@ -92,8 +92,9 @@ document, so that the NDK core can remain frozen while transforms evolve.
 ## 6. Terminology
 
 * **Master secret** — a secret byte sequence supplied to SLIP-0021. NDK does not define
-  its origin, representation, or exact length. Security of every derived seed depends on
-  the entropy of the master secret.
+  its origin, representation, or exact length (see Appendix A for informative sourcing
+  patterns, including deriving it from a BIP-39 mnemonic). Security of every derived seed
+  depends on the entropy of the master secret.
 * **Descriptor** — a JSON object containing the named derivation context. Exactly five
   properties (§7).
 * **Label** — a UTF-8 string of the form `key:value` used to derive a SLIP-0021 child
@@ -472,3 +473,67 @@ operation; this document is authoritative for descriptor validation and label
 compilation.
 
 * SLIP-0021: <https://github.com/satoshilabs/slips/blob/master/slip-0021.md>
+
+---
+
+## Appendix A. Obtaining a master secret (informative)
+
+**This appendix is non-normative.** The origin of the master secret is deliberately out
+of scope (§5, §6): the NDK core accepts raw bytes and does not standardize how they are
+produced. The patterns below are illustrations, not requirements. Using a different
+sourcing method changes the master secret and therefore every derived NDK seed, so an
+implementation that wants recovery portability across tools SHOULD record which method it
+used. NDK adds no entropy: the source MUST be high-entropy (§19).
+
+All examples reuse the public BIP-39 test mnemonic (Trezor), so they are reproducible:
+
+```text
+mnemonic   : abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about
+passphrase : TREZOR
+BIP-39 seed: c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e53495531f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04
+```
+
+and the baseline descriptor
+`{ ndk:1, subject:"github:Patternity/ndk", purpose:"donations", profile:"dash:mainnet", type:"bip32-seed" }`.
+
+### A.1 Pattern: BIP-39 mnemonic → master secret
+
+Use the 64-byte BIP-39 seed (the PBKDF2-HMAC-SHA512 output over the NFKD-normalized
+mnemonic and the salt `"mnemonic" + passphrase`, 2048 iterations) **verbatim** as the
+master secret. This is idiomatic for SLIP-0021, whose own test vector uses a 64-byte seed.
+
+```text
+master secret = BIP-39 seed (above)
+NDK seed      = e4a322d4dcc2c70010069576749cab25a05afda1afe1e7b8b257a5cc4b5eb6d9
+```
+
+**Domain separation from a wallet.** SLIP-0021 derives its root with
+`HMAC-SHA512("Symmetric key seed", seed)` while BIP-32 uses
+`HMAC-SHA512("Bitcoin seed", seed)`. The two root keys differ, so NDK seeds are
+automatically independent of any BIP-32 wallet keys derived from the *same* mnemonic —
+there is no collision even when the mnemonic is shared.
+
+### A.2 Pattern: an HD-wallet private key → master secret
+
+Take a private key from an existing HD wallet and use its 32 bytes as the master secret.
+For example, the private key at the hardened path `m/44'/5'/0'` (Dash account 0) from the
+BIP-39 seed above:
+
+```text
+HD private key m/44'/5'/0' : 446ea5ce843b2f22534cc3ac139ab080c1fad35872b7b475c5dfc544c3068b28
+master secret              = that private key
+NDK seed                   = c87fcc3e2ffc483806e077b6fe329d2630fd27399021da1041dbc534208c32e1
+```
+
+This binds NDK derivation to a specific wallet account. Note that it does **not** provide
+the automatic separation of A.1: if the same private key is used elsewhere, NDK shares its
+fate.
+
+### A.3 Recommended default
+
+Prefer a **dedicated** master secret (a separate random secret or a separate mnemonic
+reserved for NDK) over reusing a wallet mnemonic or key. NDK provides context separation,
+not compromise isolation (§19): a dedicated secret limits blast radius. Reusing an
+existing mnemonic (A.1) is safe from collisions and is a reasonable, conscious tradeoff
+for lower-value contexts, but it links NDK's compromise to the wallet's. See
+`SECURITY.md`.

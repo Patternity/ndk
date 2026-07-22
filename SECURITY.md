@@ -12,7 +12,8 @@ knows or guesses a descriptor and holds the master secret can derive the seed.
 
 NDK adds **no entropy**. A password, URL, project name, username, or any guessable value
 MUST NOT be used directly as a master secret. Use a high-entropy secret (e.g. 32 random
-bytes from a CSPRNG, or a hardware-backed secret).
+bytes from a CSPRNG, or a hardware-backed secret). For informative sourcing patterns —
+including deriving the master secret from a BIP-39 mnemonic — see `SPEC.md` Appendix A.
 
 ## 3. Context separation, not compromise isolation
 
