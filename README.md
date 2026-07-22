@@ -90,9 +90,10 @@ draft as a stable cryptographic protocol. Open questions that block `1.0` are li
 
 ## Reference implementation
 
-The first reference implementation (TypeScript) is maintained independently by LexxXell:
-`@lexxxell/named-deterministic-keys`. It implements this specification and is not itself
-the standard. Other implementations are welcome and encouraged.
+The first reference implementation (TypeScript) is maintained independently by LexxXell at
+<https://github.com/LexxXell/ndk> (npm `@lexxxell/named-deterministic-keys`). It implements
+this specification and is not itself the standard. Other implementations are welcome and
+encouraged.
 
 ## Licensing
 
